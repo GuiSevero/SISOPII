@@ -1,0 +1,19 @@
+/***
+* Exercício de Sistemas Operacionais II
+* Transformação de um grafo em um programa usando fork/join
+*
+***/
+
+C1;
+fork L1; //fork de C3
+fork L2; //fork de C4
+C2;
+L3: join; //join C2-C3
+C5;
+L4: join; //join C4-C5
+C6;
+
+L1: C3;
+        goto L3;
+L2: C4;
+        goto L4;
