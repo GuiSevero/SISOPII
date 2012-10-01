@@ -1,0 +1,42 @@
+	1) Criação do socket
+		No TCP temos o socket orientado a conexão enquanto que no UDP não. Os dois utilizam a mesma função socket(), a diferença é que no TCP utilizamos o parâmetro SOCK_STREAM e no UDP utilizamos o SOCK_DGRAM.
+
+	2) Nomeação e endereçamento dos processos
+		No UDP, o cliente precisa estabelecer a conexão do socket do cliente com o seu endereço, no TCP não.
+		No TCP, apenas é necessário o endereço IP do servidor para que efetue uma conexão.
+
+	3) Modelo de comunicação (passos para realização de todo o ciclo de comunicação)
+		TCP:
+			Servidor:	
+			* o servidor inicia seu socket, 
+			* configura seu endereço e seu numero de porta, 
+			* ativa a escuta do socket para a espera da mensagem
+
+			Cliente:
+			* cria seu socket, 
+			* configura o endereço do servidor para efetuar conexão e realiza a conexão. 
+			* Após conectado, espera a mensagem que o usuário quer enviar. Quando o usuário envia a mensagem, o cliente envia pelo socket a mensagem e fecha seu lado da conexão. 
+
+			O servidor, que estava experando por uma conexão, estabelece a mesma e lê a mensagem enviada pelo cliente, mostrando-a na tela e fechando a conexão com o cliente. 
+			O servidor está em loop aguardando conexões. Só terminando sua execução quando receber a mensagem "desligar", fechando o seu socket.
+		
+
+		UDP:
+			Servidor:
+			* cria seu socket e configura seu próprio endereço para que seu socket se conecte a seu endereço
+			* Aguarda uma mensagem do cliente. 
+
+			Cliente:
+			* Cria seu socket, configura seu endereço para que o socket se conecte a ele, 
+			* prepara o endereço do servidor para que depois se conecte com ele. 
+			* envia uma mensagem ao servidor. 
+
+			O servidor ao receber a mensagem mostra uma mensagem de confirmação e o seu conteúdo, e então envia uma resposta ao cliente, de confirmação de recebimento. 
+			O cliente recebe esta resposta e exibe-a. 
+			Por fim, ambos, fecham seus sockets e acabam suas execuções.
+		
+	4) Chamadas usadas para troca de dados
+		No UDP as chamadas para troca de dados são feitas através das funções sendto() e recvfrom(), no cliente, e recvfrom() e sendto().
+		No TCP são usadas as chamadas write() e read().
+		Em TCP não é necessário o endereços das interfaces que trocam dados.
+		Em UDP é necessário o endereço das interfaces que trocam dados.
